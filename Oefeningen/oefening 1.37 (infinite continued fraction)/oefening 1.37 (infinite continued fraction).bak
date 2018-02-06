@@ -1,0 +1,11 @@
+#lang racket
+
+#|   RECURSIEF   |#
+
+(define (cont-frac n d k)
+  (define (iter n d k stop)
+    (if (> k stop)
+        1
+        (/ (n k)
+           (+ (d k) (iter n d (+ k 1) stop)))))
+  (iter n d 1 k))

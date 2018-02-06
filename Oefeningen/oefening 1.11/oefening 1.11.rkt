@@ -1,0 +1,36 @@
+#lang racket
+#|  f(n) = n if n<3 and f(n) = f(n - 1) + 2f(n - 2) + 3f(n - 3) if n> 3  |#
+
+#|  RECURSIEF  |#
+
+(define (f n)
+  (cond ((< n 3) n)
+        (else (+ (f (- n 1))
+                 (* 2 (f (- n 2)))
+                 (* 3 (f (- n 3)))))))
+
+#|  ITERATIEF  |#
+
+(define (fi n)(fi-iter 1 2 4 n))
+
+(define (fi-iter a b c counter)
+  (cond ((= counter 1) a)
+        ((= counter 2) b)
+        ((= counter 3) c)
+        ((> counter 4) (fi-iter b c (+ c (* 2 b) (* 3 a)) (- counter 1)))
+        (else(+ c (* 2 b) (* 3 a)))))
+
+#|  ITERATIEF, VEREENVOUDIGD MBH BLOCK STRUCTURE & LEXICAL SCOPING  |#
+#|            OPLOSSING BOVEN WERKTE OOK NOG NIET VOOR n=0          |#
+  
+(define (fiopt n)
+  (define (fi-iter a b c counter)
+    (if (> counter 3)(fi-iter b c (+ c (* 2 b) (* 3 a)) (- counter 1))
+         (+ c (* 2 b) (* 3 a))))
+    (if (< n 3) n
+         (fi-iter 0 1 2 n)))
+
+
+
+
+

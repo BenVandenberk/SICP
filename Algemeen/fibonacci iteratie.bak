@@ -1,0 +1,22 @@
+#lang racket
+#|(define (fib-iter n a b counter)
+  (define (improve a b) (+ a b))
+    (cond ((not(posint n)) (display "The Argument of 'fib' must be a positive integer"))
+          ((= counter 1) (fib-iter n a b (+ counter 1)))
+          ((and (even counter) (>= n counter)) (fib-iter n b (+ a b) (+ counter 1)))
+          ((>= n counter) (fib-iter n b (+ a b) (+ counter 1)))
+          (else (+ a b))))|#    
+    
+(define (fib n) (fib-iter n 0 1 n))
+
+(define (posint x)
+  (cond ((= 1 x) (= 1 1))
+        ((< x 0) (= 1 2))
+        (else (posint (- x 1)))))
+
+(define (fib-iter n a b counter)
+  (cond ((not(posint n)) (display "The Argument of 'fib' must be a positive integer"))
+        ((= n 1) a)
+        ((= n 2) b)
+        ((> counter 3) (fib-iter n b (+ a b) (- counter 1)))
+        (else (+ a b))))

@@ -1,0 +1,9 @@
+#lang racket
+
+(define (halve x) (/ x 2))
+(define (double x) (* x 2))
+
+(define (maal a b)
+  (cond ((= a 1) b)
+        ((even? a) (maal (halve a)(double b)))
+        (else (+ b (maal (- a 1) b)))))

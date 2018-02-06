@@ -1,0 +1,30 @@
+#lang racket
+
+(define (iterative-improve good-enough? improve)
+  (define (guessloop guess)
+    (if (good-enough? guess)
+        guess
+        (guessloop (improve guess))))
+  (lambda (guess) (guessloop guess)))
+
+(define (vierkantswortel x)
+  (define (good-enough? guess)
+    (< (abs (- (square guess) x)) 0.001))
+  (define (improve guess)
+    (average guess (/ x guess)))
+  ((iterative-improve good-enough? improve) 1.0))
+
+(define (fixed-point f guess)
+  (let ((tolerance 0.000001))
+    (define (close-enough? guess)
+      (< (abs (- guess (next guess))) tolerance))
+    (define (next guess)
+      (f guess))
+    ((iterative-improve close-enough? next) guess)))
+
+#|////////////////////////////////////////////////////////////|#
+
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (square x) (* x x))

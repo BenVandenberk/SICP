@@ -1,0 +1,5 @@
+#lang racket
+(define (totde x y)
+  (if (= y 0)
+      1
+      (* x (totde x (- y 1)))))
